@@ -169,7 +169,9 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
       unawaited(Sentry.captureException(
         e,
         stackTrace: st,
-        hint: "error changing audiosource to item=${item.id}",
+        hint: Hint.withMap({
+          "message": "error changing audiosource to item=${item.id}",
+        }),
       ));
     }
   }
@@ -202,7 +204,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
           scope.setExtra("handled", true);
         });
         unawaited(Sentry.captureException(e,
-            stackTrace: st, hint: {"handled": "true"}));
+            stackTrace: st, hint: Hint.withMap({"handled": "true"})));
         playbackState.add(playbackState.value.copyWith(
           processingState: AudioProcessingState.error,
           errorMessage: e.code,
@@ -215,7 +217,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
           scope.setExtra("handled", true);
         });
         unawaited(Sentry.captureException(e,
-            stackTrace: st, hint: {"handled": "true"}));
+            stackTrace: st, hint: Hint.withMap({"handled": "true"})));
         playbackState.add(playbackState.value.copyWith(
           processingState: AudioProcessingState.error,
           errorMessage: e.code,
@@ -228,7 +230,7 @@ class MyAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
           scope.setExtra("handled", true);
         });
         unawaited(Sentry.captureException(e,
-            stackTrace: st, hint: {"handled": "true"}));
+            stackTrace: st, hint: Hint.withMap({"handled": "true"})));
         playbackState.add(playbackState.value.copyWith(
           processingState: AudioProcessingState.error,
           errorCode: e.code,
